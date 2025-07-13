@@ -1,0 +1,191 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Voice Agent</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        label {
+            display: block;
+            margin: 12px 0 5px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        button {
+            margin-top: 20px;
+            background-color: #0078D4;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Start AI Voice Call</h2>
+        <form method="POST" action="/start-call">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone Number (e.g., +919876543210):</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <button type="submit">Call Now</button>
+        </form>
+    </div>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gemini Prompt with LangChain</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    textarea {
+      width: 100%;
+      max-width: 600px;
+      height: 120px;
+      padding: 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      resize: vertical;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 25px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .response-container {
+      margin-top: 30px;
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .response-label {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .response {
+      white-space: pre-wrap;
+      background: #ffffff;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      min-height: 100px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Ask Gemini (LangChain)</h2>
+
+  <textarea id="prompt" placeholder="Type your prompt here..."></textarea>
+  <button onclick="sendPrompt()">Submit</button>
+
+  <div class="response-container">
+    <div class="response-label">Response:</div>
+    <div class="response" id="responseBox">Awaiting input...</div>
+  </div>
+
+  <script>
+    async function sendPrompt() {
+      const prompt = document.getElementById('prompt').value.trim();
+      const responseBox = document.getElementById('responseBox');
+
+      if (!prompt) {
+        responseBox.textContent = "Please enter a prompt first.";
+        return;
+      }
+
+      responseBox.textContent = "Loading...";
+
+      try {
+        const res = await fetch('http://127.0.0.1:8000/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await res.json();
+        responseBox.textContent = data.response || "No response received.";
+      } catch (error) {
+        responseBox.textContent = "Error contacting backend: " + error.message;
+      }
+    }
+  </script>
+</body>
+</html> -->
