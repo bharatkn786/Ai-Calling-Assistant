@@ -30,11 +30,8 @@ app = FastAPI()
 
 # call_user.py
 
-import os
 from twilio.rest import Client
-from dotenv import load_dotenv
 
-load_dotenv()
 
 class PromptRequest(BaseModel):
     prompt: str
