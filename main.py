@@ -27,6 +27,42 @@ SERVEO_URL=os.getenv("SERVEO_URL")
 print(SERVEO_URL)
 app = FastAPI()
 
+
+# call_user.py
+
+import os
+from twilio.rest import Client
+from dotenv import load_dotenv
+
+load_dotenv()
+
+def start_twilio_call():
+    account_sid = os.getenv("twilio_sid")  # ✅ Use the correct key
+    auth_token = os.getenv("twilio_token")
+    twilio_number = "+19899990030"
+    target_number = os.getenv("phone_number")
+    serveo_url = os.getenv("SERVEO_URL")
+
+    if not all([account_sid, auth_token, target_number, serveo_url]):
+        print("❌ Missing required environment variables")
+        return
+
+    voice_url = serveo_url + "/voice"
+    print("📞 Calling:", target_number)
+    print("🌐 Voice URL:", voice_url)
+
+    client = Client(account_sid, auth_token)
+
+    try:
+        call = client.calls.create(
+            to=target_number,
+            from_=twilio_number,
+            url=voice_url
+        )
+        print(f"✅ Call initiated! SID: {call.sid}")
+    except Exception as e:
+        print("❌ Twilio call failed:", e)
+
 class PromptRequest(BaseModel):
     prompt: str
 
@@ -45,18 +81,21 @@ async def start_call(request: Request):
     name = form.get("name")
     phone = form.get("phone")
 
-    # Set values as environment variables
     os.environ["CALLER_NAME"] = name
     os.environ["phone_number"] = phone
 
-    # Run tunnel
-    # subprocess.run(["python", "servo_url.py"])
+    print("📞 Received name:", name, "Phone:", phone)
 
-    # Run call_user.py (it will read env vars)
-    subprocess.run(["python", "call_user.py"])
+    from call_user import start_twilio_call
+    start_twilio_call()
 
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse("index.html", {
+    "request": request,
+    "called_name": name,
+    "called_number": phone
+})
 
+    
 @app.post("/voice")
 async def voice():
     global user_name
