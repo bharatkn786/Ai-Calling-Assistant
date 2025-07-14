@@ -36,33 +36,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def start_twilio_call():
-    account_sid = os.getenv("twilio_sid")  # ✅ Use the correct key
-    auth_token = os.getenv("twilio_token")
-    twilio_number = "+19899990030"
-    target_number = os.getenv("phone_number")
-    serveo_url = os.getenv("SERVEO_URL")
-
-    if not all([account_sid, auth_token, target_number, serveo_url]):
-        print("❌ Missing required environment variables")
-        return
-
-    voice_url = serveo_url + "/voice"
-    print("📞 Calling:", target_number)
-    print("🌐 Voice URL:", voice_url)
-
-    client = Client(account_sid, auth_token)
-
-    try:
-        call = client.calls.create(
-            to=target_number,
-            from_=twilio_number,
-            url=voice_url
-        )
-        print(f"✅ Call initiated! SID: {call.sid}")
-    except Exception as e:
-        print("❌ Twilio call failed:", e)
-
 class PromptRequest(BaseModel):
     prompt: str
 
@@ -75,6 +48,25 @@ user_name = ""
 async def serve_home(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
+# @app.post("/start-call")
+# async def start_call(request: Request):
+#     form = await request.form()
+#     name = form.get("name")
+#     phone = form.get("phone")
+
+#     os.environ["CALLER_NAME"] = name
+#     os.environ["phone_number"] = phone
+
+#     print("📞 Received name:", name, "Phone:", phone)
+
+#     from call_user import start_twilio_call
+#     start_twilio_call()
+
+#     return templates.TemplateResponse("index.html", {
+#     "request": request,
+#     "called_name": name,
+#     "called_number": phone
+# })
 @app.post("/start-call")
 async def start_call(request: Request):
     form = await request.form()
@@ -87,13 +79,14 @@ async def start_call(request: Request):
     print("📞 Received name:", name, "Phone:", phone)
 
     from call_user import start_twilio_call
-    start_twilio_call()
+    success = start_twilio_call()
 
     return templates.TemplateResponse("index.html", {
-    "request": request,
-    "called_name": name,
-    "called_number": phone
-})
+        "request": request,
+        "called_name": name if success else None,
+        "called_number": phone if success else None,
+        "error_message": None if success else "❌ Failed to initiate call. Please try again."
+    })
 
     
 @app.post("/voice")
