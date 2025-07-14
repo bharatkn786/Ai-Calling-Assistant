@@ -8,5 +8,4 @@
 # echo "🚀 Starting app with Gunicorn + Uvicorn worker"
 # exec gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 #!/bin/bash
-pip install -r requirements.txt
-exec gunicorn main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+exec gunicorn main:app -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
