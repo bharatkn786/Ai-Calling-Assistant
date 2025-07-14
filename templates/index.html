@@ -65,11 +65,14 @@
 <body>
     <div class="container">
         <h2>Start AI Voice Call</h2>
-    {% if called_number and called_name %}
+    {% if error_message %}
+    <p style="color: red; font-weight: bold;">{{ error_message }}</p>
+{% elif called_number and called_name %}
     <p style="color: green; font-weight: bold;">
         📞 Calling {{ called_name }} at {{ called_number }}...
     </p>
 {% endif %}
+
 
 
         <form method="POST" action="/start-call">
