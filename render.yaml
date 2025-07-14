@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: ai-calling-assistant
+    env: python
+    region: oregon
+    plan: free
+
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port 10000
+
+    envVars:
+      - key: SERVEO_URL
+        value:
+
+      - key: GOOGLE_API_KEY
+        value: AIzaSyBRzXsXj0sTTTCVbBar_87f3peMqp-bzYw
+
+      - key: twilio_sid
+        value: AC8d4d46c75202903148aaf382f3123952
+
+      - key: twilio_token
+        value: 8d97c55561b3dee927cebe4b0d82cedf
+
+      - key: CLOUDINARY_CLOUD_NAME
+        value: ddq6vlysv
+
+      - key: CLOUDINARY_API_KEY
+        value: 347943445513229
+
+      - key: CLOUDINARY_API_SECRET
+        value: oWeujdAT9b5cK8VokwZtDRTmLdI
+
+      - key: CALLER_NAME
+        value:
+
+      - key: phone_number
+        value:
+
+      - key: DEEPGRAM_API_KEY
+        value: 88853907c0a228494acd88f81a08115d8a743eb7
+
+    autoDeploy: true
