@@ -19,7 +19,7 @@ services:
         value: AC8d4d46c75202903148aaf382f3123952
 
       - key: twilio_token
-        value: 8d97c55561b3dee927cebe4b0d82cedf
+        value: b13e3ec0ef2f2cc2d271f34fd313ac6e
 
       - key: CLOUDINARY_CLOUD_NAME
         value: ddq6vlysv
