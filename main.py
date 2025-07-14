@@ -22,7 +22,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # SERVEO_URL= os.getenv("SERVEO_URL")
-SERVEO_URL=os.getenv("SERVEO_URL")
+# SERVEO_URL=os.getenv("SERVEO_URL")
+SERVEO_URL="ai-call-assistance-ebh2h7bwgwbmcdh8.centralindia-01.azurewebsites.net"
 print(SERVEO_URL)
 app = FastAPI()
 
