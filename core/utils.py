@@ -6,8 +6,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-TWILIO_SID = os.getenv("account_sid")
-TWILIO_TOKEN = os.getenv("auth_token")
+TWILIO_SID = os.getenv("twilio_sid")
+TWILIO_TOKEN = os.getenv("twilio_token")
 
 def fetch_twilio_audio_with_retry(url: str, retries: int = 4, delay: float = 1.5):
     """
